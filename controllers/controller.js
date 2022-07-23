@@ -17,6 +17,16 @@ const vistaUnCymbal = async (req,res)=>{
         res.status(400).json({msg:'ID error', error})
     }
 }
+const vistaCymbalMarca = async (req,res)=>{
+    const marca = req.params.marca;
+    Cymbal.find({marca: marca}, function(err, cymbalBD){
+        if(err){
+            return res.json({msg:'The brand you are looking for is not in our database', err})
+        } else {
+            return res.json({succes: true, cymbal: cymbalBD});
+        }
+    })
+}
 const vistaCymbalType = async (req,res)=>{
     const tipo = req.params.tipo;
     Cymbal.find({tipo: tipo}, function(err, cymbalBD){
@@ -61,4 +71,4 @@ const borrarCymbal = async(req,res)=>{
 }
 const useAxios =
 
-module.exports = {controller, vistaCymbals, vistaUnCymbal, crearCymbal, editarCymbal, borrarCymbal, vistaCymbalType}
+module.exports = {controller, vistaCymbals, vistaUnCymbal, crearCymbal, editarCymbal, borrarCymbal, vistaCymbalType, vistaCymbalMarca}
