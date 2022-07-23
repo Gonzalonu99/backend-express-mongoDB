@@ -1,6 +1,5 @@
 const { validationResult } = require("express-validator");
 const { Cymbal } = require("../models/cymbal");
-
 const controller = {
     index (req,res){
         res.render('index', {title: 'Express'});
@@ -17,6 +16,16 @@ const vistaUnCymbal = async (req,res)=>{
     } catch (error) {
         res.status(400).json({msg:'ID error', error})
     }
+}
+const vistaCymbalType = async (req,res)=>{
+    const tipo = req.params.tipo;
+    Cymbal.find({tipo: tipo}, function(err, cymbalBD){
+        if(err){
+            return res.json({msg:'We could not find that type of cymbal', err})
+        } else {
+            return res.json({succes: true, cymbal: cymbalBD});
+        }
+    })
 }
 const crearCymbal = async (req,res)=>{
     try {
@@ -50,5 +59,6 @@ const borrarCymbal = async(req,res)=>{
         res.status(400).json({msg:'There is a problem to delete:', cymbal})
     }
 }
+const useAxios =
 
-module.exports = {controller, vistaCymbals, vistaUnCymbal, crearCymbal, editarCymbal, borrarCymbal}
+module.exports = {controller, vistaCymbals, vistaUnCymbal, crearCymbal, editarCymbal, borrarCymbal, vistaCymbalType}
