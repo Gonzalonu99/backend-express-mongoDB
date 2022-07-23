@@ -1,3 +1,4 @@
+const { default: axios } = require("axios");
 const { validationResult } = require("express-validator");
 const { Cymbal } = require("../models/cymbal");
 const controller = {
@@ -69,6 +70,12 @@ const borrarCymbal = async(req,res)=>{
         res.status(400).json({msg:'There is a problem to delete:', cymbal})
     }
 }
-const useAxios =
+const consultaAxios = async(req,res)=>{
+    const resultado = await axios.get("https://pokeapi.co/api/v2/pokemon/?limit=200/",{timeout:1000}).catch((err)=>{
+        err.origin = 'Error getting URL';
+        throw err;
+    });
+    res.status(200).json(resultado.data)
+}
 
-module.exports = {controller, vistaCymbals, vistaUnCymbal, crearCymbal, editarCymbal, borrarCymbal, vistaCymbalType, vistaCymbalMarca}
+module.exports = {controller, vistaCymbals, vistaUnCymbal, crearCymbal, editarCymbal, borrarCymbal, vistaCymbalType, vistaCymbalMarca, consultaAxios}

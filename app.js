@@ -5,6 +5,7 @@ const logger = require('morgan');
 
 const indexRouter = require('./routes/index');
 const cymbalRouter = require('./routes/cymbals');
+const pokeRouter = require('./routes/pokemon');
 const {dbConnection} = require('./db/db');
 
 const app = express();
@@ -17,6 +18,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/cymbals', cymbalRouter);
+app.use('/pokemon', pokeRouter);
 dbConnection()
 
 module.exports = app;
